@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Untitled Page</title>
+    <style>
+        body{
+        font-family:Arial,sans-serif;
+        font-size:14px;}
+    </style>
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAK3pLXcvsogriN_Np19YUdhTyYrhHGdFfngTDeRIQXyCFC4wCIRSDiWOds0QFXoWmAGsH7PGBWiH_VQ&sensor=true"
+            type="text/javascript"></script>
+			
+    <script type="text/javascript">
+    function initialize() {
+      if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("map_canvas"));
+        map.setCenter(new GLatLng(-37.255982, -56.975729), 16);
+        map.setUIToDefault();
+        
+        var tinyIcon = new GIcon();
+        tinyIcon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+        tinyIcon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+        tinyIcon.iconSize = new GSize(12, 20);
+        tinyIcon.shadowSize = new GSize(22, 20);
+        tinyIcon.iconAnchor = new GPoint(6, 20);
+        tinyIcon.infoWindowAnchor = new GPoint(5, 2);
+
+        markerOptions = { icon:tinyIcon };
+      
+        function createMarker(latlng,number) {
+          var marker = new GMarker(latlng,markerOptions);
+          marker.value = number;
+          GEvent.addListener(marker,"click", function() {
+             if(number == 1)
+             {
+                var myHtml = "<a class='me-title-link' href='http://www.google.com/maps?source=uds&q=Av%205%20656%2C%20Villa%20Gesell%2C%20Buenos%20Aires%2C%20Argentina' target='_blank'>La Tranquera</a><br/>" + "Av. 5 656 entre Paseo 106 y 107" + "<br/>" +"Villa Gesell, Buenos Aires, Argentina";
+                map.openInfoWindowHtml(latlng, myHtml);
+             }
+             else
+             {
+                var myHtml = "<a class='me-title-link' href='http://www.google.com/maps?source=uds&q=Calle%20107%20453%2C%20Villa%20Gesell%2C%20Buenos%20Aires%2C%20Argentina' target='_blank'>J.B</a><br/>" + "Paseo 107 453 entre Av. 4 y 5" + "<br/>" +"Villa Gesell, Buenos Aires, Argentina";
+                map.openInfoWindowHtml(latlng, myHtml);
+             }
+          });
+          return marker;
+	    }
+
+        var latlng = new GLatLng(-37.257062,-56.973013);
+	    map.addOverlay(createMarker(latlng,1));
+        
+        var latlng = new GLatLng(-37.258428,-56.972888);
+	    map.addOverlay(createMarker(latlng,2));
+	    
+	    var polyline = new GPolyline([
+  		  new GLatLng(-37.257915,-56.971064),
+  		  new GLatLng(-37.259213,-56.970055)
+		], "#58bd40", 10);
+		map.addOverlay(polyline);
+	    
+	   var polyline = new GPolyline([
+  		  new GLatLng(-37.260118,-56.971385),
+  		  new GLatLng(-37.255524,-56.968167)
+		], "#58bd40", 10);
+		map.addOverlay(polyline);
+		        
+        }
+    }
+    </script>
+</head>
+  <body onload="initialize()" onunload="GUnload()">
+    <div id="map_canvas" style="width: 500px; height: 350px"></div>
+  </body>
+</html>
